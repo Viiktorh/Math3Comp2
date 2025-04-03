@@ -141,8 +141,8 @@ void findVariation(const std::vector<Point> points)
 
 int main()
 {
-	std::vector<Point> pointsBB = { {1, 2}, {2, 2.8}, {3, 3.6}, {4, 4.5}, {5, 5.1} };
-	std::vector<Point> pointsTest = { {11,25}, {12,33}, {11,22},{15,41}, {8,18}, {10,28}, {11,32}, {12,24},{17,53}, {11,26} };
+	//std::vector<Point> pointsBB = { {1, 2}, {2, 2.8}, {3, 3.6}, {4, 4.5}, {5, 5.1} };
+	//std::vector<Point> pointsTest = { {11,25}, {12,33}, {11,22},{15,41}, {8,18}, {10,28}, {11,32}, {12,24},{17,53}, {11,26} };
 	double a, b, c;
 
 	std::vector<Point> pointsComp;
