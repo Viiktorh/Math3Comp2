@@ -80,7 +80,7 @@ void findVariation(const std::vector<Point> points)
 	double totalY = 0;
 	double diff = 0;
 	double biggestDiff = 0;
-	double SSE, SSR, SST = 0;
+	double SSE = 0;
 	double Sx = 0, Sy = 0, Sxx = 0, Sxy = 0;
 	int currentStep = 0;
 	double previousStepY = 0, currentStepY = 0;
@@ -94,7 +94,6 @@ void findVariation(const std::vector<Point> points)
 		Sxx += p.x * p.x;
 		Sxy += p.x * p.y;
 		averageY = Sy / ++currentStep;
-		currentStepY = p.y;
 		
 
 		currentBeta1 = (currentStep * Sxy - Sx * Sy) / (currentStep * Sxx - Sx * Sx);
@@ -103,9 +102,9 @@ void findVariation(const std::vector<Point> points)
 
 
 		/*
-		* TODO: use diff and biggest diff to detect when the algos changed, check both lines for both algos.
+		* TODO: use SSE to determine variance and not a brute forced way of diff and biggestDiff.
 		*/
-		int deviationPointIterator = 0;
+		currentStepY = p.y;
 		if (currentStep >= 1)
 		{
 			diff = currentStepY - previousStepY;
@@ -123,18 +122,6 @@ void findVariation(const std::vector<Point> points)
 			previousStepY = p.y;
 		}
 		std::cout << "Biggest difference = " << biggestDiff << " Current Difference = " << diff << std::endl;
-
-		//predictedY = currentBeta0 + currentBeta1 * currentStep;
-		//std::cout << "Predicted Lin(Y):" << predictedY << "  " << currentStep <<
-		//	"      best fitted line:";
-
-		//linearLeastSquares(pointsComp, a, b, currentStep);
-		//std::cout << "Best linear fit line: y = " << b << "x + " << a << std::endl;
-
-		//quadraticLeastSquares(points, a, b, c, currentStep);
-		//std::cout << "Best quadratic fit curve: y = " << a << "x^2 + " << b << "x + " << c <<
-		//	std::endl << std::endl;
-
 	}
 	deviationPoint.push_back(points.size()); //push back the size of the full array.
 	int previousEnd = 0;
@@ -150,8 +137,6 @@ void findVariation(const std::vector<Point> points)
 		std::cout << "Best linear fit line: y = " << b << "x + " << a << std::endl << std::endl;
 		previousEnd = deviationPoint[i];
 	}
-
-	
 }
 
 int main()
@@ -159,19 +144,9 @@ int main()
 	std::vector<Point> pointsBB = { {1, 2}, {2, 2.8}, {3, 3.6}, {4, 4.5}, {5, 5.1} };
 	std::vector<Point> pointsTest = { {11,25}, {12,33}, {11,22},{15,41}, {8,18}, {10,28}, {11,32}, {12,24},{17,53}, {11,26} };
 	double a, b, c;
-	//linearLeastSquares(pointsTest, a, b);
-	//std::cout << "Best linear fit line: y = " << b << "x + " << a << std::endl;
-	//quadraticLeastSquares(points, a, b, c);
-	//std::cout << "Best fit curve: y = " << a << "x^2 + " << b << "x + " << c <<
-	//	std::endl;
-	//std::cout << Sum_function(points, { "x", "y", "x", "x" });
 
 	std::vector<Point> pointsComp;
 	pointsComp = ReadPoints("MixedData.csv");
-	for (const auto p : pointsComp) 
-	{
-		
-	}
 	findVariation(pointsComp);
 
 	return 0;
